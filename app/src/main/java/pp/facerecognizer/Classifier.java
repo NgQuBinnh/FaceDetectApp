@@ -138,8 +138,8 @@ public class Classifier {
         classifier = new Classifier();
 
         classifier.mtcnn = MTCNN.create(assetManager);
-        classifier.faceNet = FaceNet.create(assetManager, inputHeight, inputWidth);
-        classifier.svm = LibSVM.getInstance();
+//        classifier.faceNet = FaceNet.create(assetManager, inputHeight, inputWidth);
+//        classifier.svm = LibSVM.getInstance();
 
         classifier.classNames = FileUtils.readLabel(FileUtils.LABEL_FILE);
 
@@ -170,20 +170,20 @@ public class Classifier {
                 Rect rect = new Rect();
                 rectF.round(rect);
 
-                FloatBuffer buffer = faceNet.getEmbeddings(bitmap, rect);
-                Pair<Integer, Float> pair = svm.predict(buffer);
+//                FloatBuffer buffer = faceNet.getEmbeddings(bitmap, rect);
+//                Pair<Integer, Float> pair = svm.predict(buffer);
 
                 matrix.mapRect(rectF);
-                Float prob = pair.second;
-
+//                Float prob = pair.second;
+                Float prob = Float.valueOf(0);
                 String name;
-                if (prob > 0.5)
-                    name = classNames.get(pair.first);
-                else
-                    name = "Unknown";
-
+//                if (prob > 0.5)
+//                    name = classNames.get(pair.first);
+//                else
+//                    name = "Unknown";
+                name = "";
                 Recognition result =
-                        new Recognition("" + pair.first, name, prob, rectF);
+                        new Recognition("", name, prob, rectF);
                 mappedRecognitions.add(result);
             }
             return mappedRecognitions;
